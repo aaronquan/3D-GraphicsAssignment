@@ -65,11 +65,14 @@ public class Game extends JFrame implements GLEventListener{
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
-		gl.glMatrixMode(GL2.GL_PROJECTION);
-		gl.glLoadIdentity();
-		//GLU glu = new GLU();
-		//glu.gluPerspective(90, 8/6, 1, 5);
-		gl.glScaled(0.1, 0.1, 0.1);
+		gl.glClear (GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
+        gl.glLoadIdentity();
+		GLU glu = new GLU();
+		glu.gluLookAt(0, 0.5, 12, 0, 0, 0, 0, 1, 0);
+		//gl.glScaled(0.1, 0.1, 0.1);
+		
+		
 		gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
 		myTerrain.drawTerrain(gl);
 		gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_FILL);
@@ -85,16 +88,27 @@ public class Game extends JFrame implements GLEventListener{
 	@Override
 	public void init(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
-		gl.glEnable(GL2.GL_DEPTH_TEST);
-		gl.glEnable(GL2.GL_LIGHTING);
-		gl.glEnable(GL2.GL_LIGHT0);
+		
+		//lighting
+		//gl.glEnable(GL2.GL_DEPTH_TEST);
+		//gl.glEnable(GL2.GL_LIGHTING);
+		//gl.glEnable(GL2.GL_LIGHT0);
+		
+		//cull back faces
+		gl.glEnable(GL2.GL_CULL_FACE);
+    	gl.glCullFace(GL2.GL_BACK);
 		
 	}
 
 	@Override
 	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
 			int height) {
-		// TODO Auto-generated method stub
+		GL2 gl = drawable.getGL().getGL2();
+		gl.glMatrixMode(GL2.GL_PROJECTION);
+		gl.glLoadIdentity();
+		GLU glu = new GLU();
+		glu.gluPerspective(60, width/height, 1, 20);
+		gl.glMatrixMode(GL2.GL_MODELVIEW);
 		
 	}
 }
