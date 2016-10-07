@@ -69,7 +69,7 @@ public class Game extends JFrame implements GLEventListener{
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
 		GLU glu = new GLU();
-		glu.gluLookAt(0, 0.5, 12, 0, 0, 0, 0, 1, 0);
+		glu.gluLookAt(2.5, 4, 9, 2.5, 0, 0, 0, 1, 0);
 		//gl.glScaled(0.1, 0.1, 0.1);
 		
 		
