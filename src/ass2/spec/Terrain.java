@@ -125,37 +125,30 @@ public class Terrain {
         double xFloor = Math.floor(x);
         double zCeil = Math.ceil(z);
         double zFloor = Math.floor(z);
-    	double zFromFloor = z-Math.floor(z);
-    	double xFromFloor = x-Math.floor(x);
     	
         //checking whether both x and z are ints
         if (x % 1 == 0 && z % 1 == 0){
         	//take altitude from the array
+        	System.out.println("test");
         	altitude = myAltitude[(int) x][(int) z];
         }
-        else if(x % 1 == 0){
-        	
-        	double d1 = myAltitude[(int) x][(int) Math.floor(z)];
-        	double d2 = myAltitude[(int) x][(int) Math.ceil(z)];
-        	altitude = d1 + (d1 - d2)*zFromFloor;
+        else if(x % 1 == 0){     	
+        	altitude = ((z-zFloor)/(zCeil-zFloor))*myAltitude[(int) x][(int) zCeil]
+        				+ ((zCeil-z)/(zCeil-zFloor))*myAltitude[(int) x][(int) zFloor];
         }
         else if(z % 1 == 0){
-        	double d1 = myAltitude[(int) Math.floor(x)][(int) z];
-        	double d2 = myAltitude[(int) Math.ceil(x)][(int) z];
-        	altitude = d1 + (d1 - d2)*xFromFloor;
+        	altitude = ((x-xFloor)/(xCeil-xFloor))*myAltitude[(int) xCeil][(int) z]
+    				+ ((xCeil-x)/(xCeil-xFloor))*myAltitude[(int) xFloor][(int) z];
         }
         else{
-        	//use interpolation
-        	//get x depth
-        	double p1 = myAltitude[(int) Math.floor(x)][(int) Math.floor(z)];
-        	double p2 = myAltitude[(int) Math.floor(x)][(int) Math.ceil(z)];
-        	double p3 = myAltitude[(int) Math.ceil(x)][(int) Math.floor(z)];
-        	double p4 = myAltitude[(int) Math.ceil(x)][(int) Math.ceil(z)];
+        	double dl = ((z-zFloor)/(zCeil-zFloor))*myAltitude[(int) xFloor][(int) zCeil]
+    				+ ((zCeil-z)/(zCeil-zFloor))*myAltitude[(int) xFloor][(int) zFloor];
+        	double dr = ((z-zFloor)/(zCeil-zFloor))*myAltitude[(int) xCeil][(int) zCeil]
+    				+ ((zCeil-z)/(zCeil-zFloor))*myAltitude[(int) xCeil][(int) zFloor];
         	
-        	double d1 = p1 + (p1-p2)*zFromFloor;
-        	double d2 = p3 + (p3-p4)*zFromFloor;
+        	altitude = ((x-xFloor)/(xCeil-xFloor))*dr
+    				+ ((xCeil-x)/(xCeil-xFloor))*dl;
         	
-        	altitude = d1 + (d1 - d2)*xFromFloor;
         }
         
         
@@ -185,6 +178,10 @@ public class Terrain {
     public void addRoad(double width, double[] spine) {
         Road road = new Road(width, spine);
         myRoads.add(road);        
+    }
+    
+    public void drawTerrain(){
+    	
     }
 
 

@@ -44,7 +44,6 @@ public class Game extends JFrame implements GLEventListener{
           setVisible(true);
           setDefaultCloseOperation(EXIT_ON_CLOSE); 
           
-          System.out.println(myTerrain.altitude(0.5, 1));
     }
     
     /**
