@@ -2,9 +2,13 @@ package ass2.spec;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLJPanel;
+import com.jogamp.opengl.glu.GLU;
+
 import javax.swing.JFrame;
+
 import com.jogamp.opengl.util.FPSAnimator;
 
 
@@ -60,7 +64,15 @@ public class Game extends JFrame implements GLEventListener{
 
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		// TODO Auto-generated method stub
+		GL2 gl = drawable.getGL().getGL2();
+		gl.glMatrixMode(GL2.GL_PROJECTION);
+		gl.glLoadIdentity();
+		//GLU glu = new GLU();
+		//glu.gluPerspective(90, 8/6, 1, 5);
+		gl.glScaled(0.1, 0.1, 0.1);
+		gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
+		myTerrain.drawTerrain(gl);
+		gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_FILL);
 		
 	}
 
@@ -72,7 +84,10 @@ public class Game extends JFrame implements GLEventListener{
 
 	@Override
 	public void init(GLAutoDrawable drawable) {
-		// TODO Auto-generated method stub
+		GL2 gl = drawable.getGL().getGL2();
+		gl.glEnable(GL2.GL_DEPTH_TEST);
+		gl.glEnable(GL2.GL_LIGHTING);
+		gl.glEnable(GL2.GL_LIGHT0);
 		
 	}
 

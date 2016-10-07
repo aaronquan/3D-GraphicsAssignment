@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jogamp.opengl.GL2;
+
 
 
 /**
@@ -180,8 +182,22 @@ public class Terrain {
         myRoads.add(road);        
     }
     
-    public void drawTerrain(){
+    public void drawTerrain(GL2 gl){
+    	gl.glBegin(GL2.GL_TRIANGLES);
     	
+    	for (int x = 0; x < myAltitude.length - 1; x++){
+    		for(int z = 0; z < myAltitude[x].length - 1; z++){
+    			gl.glVertex3d(x, myAltitude[x][z], z);
+    			gl.glVertex3d(x, myAltitude[x][z + 1], z + 1);
+    			gl.glVertex3d(x + 1, myAltitude[x + 1][z], z);
+    			
+    			gl.glVertex3d(x, myAltitude[x][z + 1], z + 1);
+    			gl.glVertex3d(x + 1, myAltitude[x + 1][z + 1], z + 1);
+    			gl.glVertex3d(x + 1, myAltitude[x + 1][z], z);
+    		}
+    	}
+    	
+    	gl.glEnd();
     }
 
 
