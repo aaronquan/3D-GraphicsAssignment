@@ -1,5 +1,7 @@
 package ass2.spec;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -18,7 +20,7 @@ import com.jogamp.opengl.util.FPSAnimator;
  *
  * @author malcolmr
  */
-public class Game extends JFrame implements GLEventListener{
+public class Game extends JFrame implements GLEventListener, KeyListener {
 
     private Terrain myTerrain;
 
@@ -37,6 +39,7 @@ public class Game extends JFrame implements GLEventListener{
           GLCapabilities caps = new GLCapabilities(glp);
           GLJPanel panel = new GLJPanel();
           panel.addGLEventListener(this);
+          panel.addKeyListener(this);
  
           // Add an animator to call 'display' at 60fps        
           FPSAnimator animator = new FPSAnimator(60);
@@ -64,6 +67,7 @@ public class Game extends JFrame implements GLEventListener{
 
 	@Override
 	public void display(GLAutoDrawable drawable) {
+		
 		GL2 gl = drawable.getGL().getGL2();
 		gl.glClear (GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
         gl.glMatrixMode(GL2.GL_MODELVIEW);
@@ -111,6 +115,32 @@ public class Game extends JFrame implements GLEventListener{
 		GLU glu = new GLU();
 		glu.gluPerspective(60, width/height, 1, 20);
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
+		
+	}
+	@Override
+	public void keyPressed(KeyEvent ev) {
+    	switch (ev.getKeyCode()) {	
+    	case KeyEvent.VK_UP:
+    		System.out.println("up");
+    		break;
+    	case KeyEvent.VK_DOWN:
+    		break;
+    	case KeyEvent.VK_LEFT:
+    		break;
+    	case KeyEvent.VK_RIGHT:
+    		break;
+    	default:
+    		break;
+    	}
+    }
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
 		
 	}
 }
