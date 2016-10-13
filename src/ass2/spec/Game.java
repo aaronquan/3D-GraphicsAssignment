@@ -73,9 +73,9 @@ public class Game extends JFrame implements GLEventListener{
 		//gl.glScaled(0.1, 0.1, 0.1);
 		
 		
-		gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
+		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
 		myTerrain.drawTerrain(gl);
-		gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_FILL);
+		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_FILL);
 		
 	}
 
@@ -90,9 +90,9 @@ public class Game extends JFrame implements GLEventListener{
 		GL2 gl = drawable.getGL().getGL2();
 		
 		//lighting
-		//gl.glEnable(GL2.GL_DEPTH_TEST);
-		//gl.glEnable(GL2.GL_LIGHTING);
-		//gl.glEnable(GL2.GL_LIGHT0);
+		gl.glEnable(GL2.GL_DEPTH_TEST);
+		gl.glEnable(GL2.GL_LIGHTING);
+		gl.glEnable(GL2.GL_LIGHT0);
 		
 		//cull back faces
 		gl.glEnable(GL2.GL_CULL_FACE);
