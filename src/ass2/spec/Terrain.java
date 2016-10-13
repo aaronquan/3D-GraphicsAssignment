@@ -187,13 +187,23 @@ public class Terrain {
     	
     	for (int x = 0; x < myAltitude.length - 1; x++){
     		for(int z = 0; z < myAltitude[x].length - 1; z++){
-    			gl.glVertex3d(x, myAltitude[x][z], z);
-    			gl.glVertex3d(x, myAltitude[x][z + 1], z + 1);
-    			gl.glVertex3d(x + 1, myAltitude[x + 1][z], z);
+    			double [] p1 = {x, myAltitude[x][z], z};
+    			double [] p2 = {x+1, myAltitude[x+1][z], z};
+    			double [] p3 = {x, myAltitude[x][z+1], z+1};
+    			double [] p4 = {x+1, myAltitude[x+1][z+1], z+1};
+    			double [] n1 = MathUtil.getNormal(p1, p3, p2);
+    			double [] n2 = MathUtil.getNormal(p3, p4, p2);
+    			n1 = MathUtil.normalise(n1);
+    			n2 = MathUtil.normalise(n2);
+    			gl.glNormal3dv(n1, 0);
+    			gl.glVertex3dv(p1, 0);
+    			gl.glVertex3dv(p3, 0);
+    			gl.glVertex3dv(p2, 0);
     			
-    			gl.glVertex3d(x, myAltitude[x][z + 1], z + 1);
-    			gl.glVertex3d(x + 1, myAltitude[x + 1][z + 1], z + 1);
-    			gl.glVertex3d(x + 1, myAltitude[x + 1][z], z);
+    			gl.glNormal3dv(n2, 0);
+    			gl.glVertex3dv(p3,0);
+    			gl.glVertex3dv(p4, 0);
+    			gl.glVertex3dv(p2, 0);
     		}
     	}
     	
