@@ -191,10 +191,13 @@ public class Terrain {
     			double [] p2 = {x+1, myAltitude[x+1][z], z};
     			double [] p3 = {x, myAltitude[x][z+1], z+1};
     			double [] p4 = {x+1, myAltitude[x+1][z+1], z+1};
+    			
     			double [] n1 = MathUtil.getNormal(p1, p3, p2);
     			double [] n2 = MathUtil.getNormal(p3, p4, p2);
+    			
     			n1 = MathUtil.normalise(n1);
     			n2 = MathUtil.normalise(n2);
+    			
     			gl.glNormal3dv(n1, 0);
     			gl.glVertex3dv(p1, 0);
     			gl.glVertex3dv(p3, 0);
@@ -208,6 +211,11 @@ public class Terrain {
     	}
     	
     	gl.glEnd();
+    }
+    
+    public void setLighting(GL2 gl){
+    	float [] dir = {mySunlight[0], mySunlight[1], mySunlight[2], 0};
+    	gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, dir, 0);
     }
 
 

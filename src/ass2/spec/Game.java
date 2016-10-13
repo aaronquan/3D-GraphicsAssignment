@@ -93,6 +93,8 @@ public class Game extends JFrame implements GLEventListener{
 		gl.glEnable(GL2.GL_DEPTH_TEST);
 		gl.glEnable(GL2.GL_LIGHTING);
 		gl.glEnable(GL2.GL_LIGHT0);
+		myTerrain.setLighting(gl);
+		//gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, myTerrain.getSunlight(), 0);
 		
 		//cull back faces
 		gl.glEnable(GL2.GL_CULL_FACE);
