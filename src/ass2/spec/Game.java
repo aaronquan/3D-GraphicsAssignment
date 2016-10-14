@@ -77,11 +77,13 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
         gl.glLoadIdentity();
 		GLU glu = new GLU();
 		myCamera.updateCamera(glu);
+		
 		//gl.glScaled(0.1, 0.1, 0.1);
 		
 		
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
 		myTerrain.drawTerrain(gl);
+		myTerrain.drawTree(gl);
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_FILL);
 		
 	}

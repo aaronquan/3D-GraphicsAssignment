@@ -1,5 +1,7 @@
 package ass2.spec;
 
+import com.jogamp.opengl.GL2;
+
 /**
  * COMMENT: Comment Tree 
  *
@@ -19,6 +21,13 @@ public class Tree {
     public double[] getPosition() {
         return myPos;
     }
+
+	public void draw(GL2 gl) {
+		// TODO Auto-generated method stub
+		Cylinder c = new Cylinder(2, 0.1, myPos);
+		c.draw(gl);
+		
+	}
     
 
 }

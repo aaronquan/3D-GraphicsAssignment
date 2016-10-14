@@ -218,5 +218,12 @@ public class Terrain {
     	gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, dir, 0);
     }
 
+	public void drawTree(GL2 gl) {
+		// TODO Auto-generated method stub
+		for(Tree t : myTrees) {
+			t.draw(gl);
+		}
+	}
+
 
 }
