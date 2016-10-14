@@ -23,6 +23,7 @@ import com.jogamp.opengl.util.FPSAnimator;
 public class Game extends JFrame implements GLEventListener, KeyListener {
 
     private Terrain myTerrain;
+    private Camera myCamera;
 
     public Game(Terrain terrain) {
     	super("Assignment 2");
@@ -40,7 +41,9 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
           GLJPanel panel = new GLJPanel();
           panel.addGLEventListener(this);
           panel.addKeyListener(this);
- 
+          
+          myCamera = new Camera(0, 0, 0);
+          
           // Add an animator to call 'display' at 60fps        
           FPSAnimator animator = new FPSAnimator(60);
           animator.add(panel);
@@ -121,13 +124,15 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 	public void keyPressed(KeyEvent ev) {
     	switch (ev.getKeyCode()) {	
     	case KeyEvent.VK_UP:
-    		System.out.println("up");
+    		myCamera.moveForward(1);
     		break;
     	case KeyEvent.VK_DOWN:
     		break;
     	case KeyEvent.VK_LEFT:
+    		myCamera.turnLeft(2);
     		break;
     	case KeyEvent.VK_RIGHT:
+    		myCamera.turnRight(2);
     		break;
     	default:
     		break;

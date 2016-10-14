@@ -28,4 +28,8 @@ public class MathUtil {
     	return cross(u,v);
     	
     }
+    
+    public static double normaliseAngle(double a){
+    	return a % 360;
+    }
 }
