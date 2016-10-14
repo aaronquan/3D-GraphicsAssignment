@@ -76,7 +76,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
 		GLU glu = new GLU();
-		glu.gluLookAt(2.5, 4, 9, 2.5, 0, 0, 0, 1, 0);
+		myCamera.updateCamera(glu);
 		//gl.glScaled(0.1, 0.1, 0.1);
 		
 		
@@ -124,9 +124,10 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 	public void keyPressed(KeyEvent ev) {
     	switch (ev.getKeyCode()) {	
     	case KeyEvent.VK_UP:
-    		myCamera.moveForward(1);
+    		myCamera.moveForward(0.2);
     		break;
     	case KeyEvent.VK_DOWN:
+    		myCamera.moveBackward(0.2);
     		break;
     	case KeyEvent.VK_LEFT:
     		myCamera.turnLeft(2);

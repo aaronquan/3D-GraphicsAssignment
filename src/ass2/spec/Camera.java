@@ -1,13 +1,20 @@
 package ass2.spec;
 
+import com.jogamp.opengl.glu.GLU;
+
 public class Camera {
 	private double [] position;
 	private double angle; // in degrees
+	private double [] lookAt;
 	public Camera(double posX, double posY, double posZ){
 		position = new double[3];
+		lookAt = new double[3];
 		position[0] = posX;
 		position[1] = posY;
 		position[2] = posZ;
+		lookAt[0] = 0;
+		lookAt[1] = 0;
+		lookAt[2] = 1;
 		angle = 0;
 	}
 	public double [] getPosition(){
@@ -18,48 +25,62 @@ public class Camera {
 		position[1] += add[1];
 		position[2] += add[2];
 	}
+	public void subToPosition(double [] add){
+		position[0] -= add[0];
+		position[1] -= add[1];
+		position[2] -= add[2];
+	}
 	public double getAngle(){
 		return angle;
 	}
-	public void turnRight(double i){
-		angle += i;
-		angle = MathUtil.normaliseAngle(angle);
-		System.out.println(angle);
+	public double [] getLookAt(){
+		return lookAt;
 	}
-	public void turnLeft(double i){
-		angle -= i;
-		angle = MathUtil.normaliseAngle(angle);
-		System.out.println(angle);
-	}
-	public double [] moveForward(double i){
-		double mX;
-		double mZ;
+	private void changeLookAt(){
+		double mX, mZ;
 		if (angle <= 90 || angle >= 270){
 			mZ = 1;
 		}else{
 			mZ = -1;
 		}
 		mX = Math.tan(Math.toRadians(angle))*mZ;
-		double [] vector = {mX, 0, mZ};
-		if (angle == 90){
-			vector[0] = 1;
-			vector[2] = 0;
-		}if(angle == 270){
-			vector[0] = -1;
-			vector[2] = 0;
-		}if(angle == 0){
-			vector[0] = 0;
-			vector[2] = 1;
+		if(angle == 0){
+			lookAt[0] = 0;
+			lookAt[2] = -1;
 		}if (angle == 180){
-			vector[0] = 0;
-			vector[2] = -1;
+			lookAt[0] = 0;
+			lookAt[2] = 1;
 		}else{
-			vector = MathUtil.normalise(vector);
+			lookAt[0] = mX;
+			lookAt[2] = mZ;
+			lookAt = MathUtil.normalise(lookAt);
 		}
-		addToPosition(vector);
-		return vector;
+	}
+	
+	
+	public void turnRight(double i){
+		angle -= i;
+		angle = MathUtil.normaliseAngle(angle);
+		changeLookAt();
+		System.out.println(angle);
+	}
+	public void turnLeft(double i){
+		angle += i;
+		angle = MathUtil.normaliseAngle(angle);
+		changeLookAt();
+		System.out.println(angle);
+	}
+	public void moveForward(double i){
+		addToPosition(lookAt);
 	}
 	public void moveBackward(double i){
-		
+		subToPosition(lookAt);
+	}
+	public void updateCamera(GLU glu){
+		glu.gluLookAt(
+				position[0], position[1], position[2], 
+				position[0]+lookAt[0], position[1]+lookAt[1], position[2]+lookAt[2], 
+				0, 1, 0
+				);
 	}
 }
