@@ -30,6 +30,7 @@ public class MathUtil {
     }
     
     public static double normaliseAngle(double a){
+    	while (a < 0) a += 360;
     	return a % 360;
     }
 }

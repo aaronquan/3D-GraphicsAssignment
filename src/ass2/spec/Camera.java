@@ -44,13 +44,19 @@ public class Camera {
 			mZ = -1;
 		}
 		mX = Math.tan(Math.toRadians(angle))*mZ;
-		if(angle == 0){
-			lookAt[0] = 0;
-			lookAt[2] = -1;
-		}if (angle == 180){
-			lookAt[0] = 0;
-			lookAt[2] = 1;
+		if(angle == 90){
+			lookAt[0] = 1;
+			lookAt[2] = 0;
+		}if (angle == 270){
+			lookAt[0] = -1;
+			lookAt[2] = 0;
 		}else{
+			if (angle > 270){
+				//mX = -mX;
+			}
+			if (angle > 90 && angle < 180){
+				//mX = -mX;
+			}
 			lookAt[0] = mX;
 			lookAt[2] = mZ;
 			lookAt = MathUtil.normalise(lookAt);
