@@ -82,6 +82,12 @@ public class Camera {
 	public void moveBackward(double i){
 		subToPosition(lookAt);
 	}
+	public void moveUp(double i){
+		position[1] += i;
+	}
+	public void moveDown(double i){
+		position[1] -= i;
+	}
 	public void updateCamera(GLU glu){
 		glu.gluLookAt(
 				position[0], position[1], position[2], 

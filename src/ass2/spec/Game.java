@@ -140,6 +140,12 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
     	case KeyEvent.VK_RIGHT:
     		myCamera.turnRight(2);
     		break;
+    	case KeyEvent.VK_W:
+    		myCamera.moveUp(0.2);
+    		break;
+    	case KeyEvent.VK_S:
+    		myCamera.moveDown(0.2);
+    		break;
     	default:
     		break;
     	}
