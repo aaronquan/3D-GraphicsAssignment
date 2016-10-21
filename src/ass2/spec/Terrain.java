@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 
 
@@ -218,10 +219,10 @@ public class Terrain {
     	gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, dir, 0);
     }
 
-	public void drawTree(GL2 gl) {
+	public void drawTree(GL2 gl, GLUT glut) {
 		// TODO Auto-generated method stub
 		for(Tree t : myTrees) {
-			t.draw(gl);
+			t.draw(gl, glut);
 		}
 	}
 

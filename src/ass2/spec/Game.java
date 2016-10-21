@@ -12,6 +12,7 @@ import com.jogamp.opengl.glu.GLU;
 import javax.swing.JFrame;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 
 
@@ -75,6 +76,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 		gl.glClear (GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
+        GLUT glut = new GLUT();
 		GLU glu = new GLU();
 		myCamera.updateCamera(glu);
 		
@@ -83,7 +85,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 		
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
 		myTerrain.drawTerrain(gl);
-		myTerrain.drawTree(gl);
+		myTerrain.drawTree(gl, glut);
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_FILL);
 		
 	}
@@ -102,6 +104,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 		gl.glEnable(GL2.GL_DEPTH_TEST);
 		gl.glEnable(GL2.GL_LIGHTING);
 		gl.glEnable(GL2.GL_LIGHT0);
+		gl.glEnable(GL2.GL_NORMALIZE);
 		myTerrain.setLighting(gl);
 		//gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, myTerrain.getSunlight(), 0);
 		
