@@ -23,7 +23,7 @@ public class Tree {
         return myPos;
     }
 
-	public void draw(GL2 gl, GLUT glut) {
+	public void draw(GL2 gl) {
 		String trunkTextureFileName = "bark.bmp";
 		String leafTextureFileName = "leaves.bmp";
 		String ext = "bmp";
@@ -31,9 +31,9 @@ public class Tree {
 		MyTexture trunkTexture = new MyTexture(gl, trunkTextureFileName, ext, true);
 		MyTexture leafTexture = new MyTexture(gl, leafTextureFileName, ext, true);
 		
-		double height = 0.5;
-		double trunkRadius = 0.04;
-		double leavesRadius = 0.2;
+		double height = 1;
+		double trunkRadius = 0.1;
+		double leavesRadius = 0.5;
 		gl.glPushMatrix();
 			gl.glTranslated(myPos[0], myPos[1], myPos[2]);
 			Cylinder c = new Cylinder(height, trunkRadius);

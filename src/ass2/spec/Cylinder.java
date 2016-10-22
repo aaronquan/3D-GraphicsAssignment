@@ -78,7 +78,6 @@ public class Cylinder {
                 gl.glVertex3d(x1, y2, z1);
                 gl.glTexCoord2d(((double)(i+1)%slices)/slices, 0);
                 gl.glVertex3d(x1, y1, z1);     
-                System.out.println(slices);
             }
 
         }

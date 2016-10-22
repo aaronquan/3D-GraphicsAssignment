@@ -124,6 +124,13 @@ public class Terrain {
         double altitude = 0;
         
         //no exceptions for out of bounds atm
+        System.out.println(myAltitude.length);
+        System.out.println(x + "," + z);
+        if (x < 0 || x > myAltitude.length-1 || z < 0 || z > myAltitude[0].length-1){
+        	return altitude;
+        }
+        //System.out.println(x + "," + z);
+        
         double xCeil = Math.ceil(x);
         double xFloor = Math.floor(x);
         double zCeil = Math.ceil(z);
@@ -229,10 +236,10 @@ public class Terrain {
     	gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, dir, 0);
     }
 
-	public void drawTree(GL2 gl, GLUT glut) {
+	public void drawTree(GL2 gl) {
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, 0);
 		for(Tree t : myTrees) {
-			t.draw(gl, glut);
+			t.draw(gl);
 		}
 	}
 

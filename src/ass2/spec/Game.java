@@ -22,9 +22,12 @@ import com.jogamp.opengl.util.gl2.GLUT;
  * @author malcolmr
  */
 public class Game extends JFrame implements GLEventListener, KeyListener {
-
+	
     private Terrain myTerrain;
     private Camera myCamera;
+    
+    private double moveSpeed = 0.1;
+    private double turnSpeed = 2;
 
     public Game(Terrain terrain) {
     	super("Assignment 2");
@@ -85,7 +88,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 		
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
 		myTerrain.drawTerrain(gl);
-		myTerrain.drawTree(gl, glut);
+		myTerrain.drawTree(gl);
 		myTerrain.drawRoad(gl, glut);
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_FILL);
 		
@@ -136,22 +139,22 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 	public void keyPressed(KeyEvent ev) {
     	switch (ev.getKeyCode()) {	
     	case KeyEvent.VK_UP:
-    		myCamera.moveForward(0.2);
+    		myCamera.moveForward(moveSpeed, myTerrain);
     		break;
     	case KeyEvent.VK_DOWN:
-    		myCamera.moveBackward(0.2);
+    		myCamera.moveBackward(moveSpeed, myTerrain);
     		break;
     	case KeyEvent.VK_LEFT:
-    		myCamera.turnLeft(2);
+    		myCamera.turnLeft(turnSpeed);
     		break;
     	case KeyEvent.VK_RIGHT:
-    		myCamera.turnRight(2);
+    		myCamera.turnRight(turnSpeed);
     		break;
     	case KeyEvent.VK_W:
-    		myCamera.moveUp(0.2);
+    		myCamera.moveUp(moveSpeed);
     		break;
     	case KeyEvent.VK_S:
-    		myCamera.moveDown(0.2);
+    		myCamera.moveDown(moveSpeed);
     		break;
     	default:
     		break;

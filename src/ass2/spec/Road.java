@@ -165,10 +165,10 @@ public class Road {
 
         int numPoints = 16;
         double tIncrement = 1.0/numPoints;
-        System.out.println("numPoints " + numPoints + " " + tIncrement);
+        //System.out.println("numPoints " + numPoints + " " + tIncrement);
         for(int i = 0; i < numPoints*size(); i++){        		
         	double t = i*tIncrement;   
-        	System.out.println("t " + t);
+        	//System.out.println("t " + t);
         	double[] p = point(t);
         	double height = x[(int) p[0]][(int) p[1]];
         	gl.glVertex3d(p[0], height + 0.1, p[1]);

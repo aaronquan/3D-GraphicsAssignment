@@ -68,19 +68,21 @@ public class Camera {
 		angle -= i;
 		angle = MathUtil.normaliseAngle(angle);
 		changeLookAt();
-		System.out.println(angle);
 	}
 	public void turnLeft(double i){
 		angle += i;
 		angle = MathUtil.normaliseAngle(angle);
 		changeLookAt();
-		System.out.println(angle);
 	}
-	public void moveForward(double i){
+	public void moveForward(double i, Terrain t){
 		addToPosition(lookAt);
+		//if (position[1] < t.altitude(position[0], position[2]) + 1.5)
+		position[1] = t.altitude(position[0], position[2]) + 1.5;
 	}
-	public void moveBackward(double i){
+	public void moveBackward(double i, Terrain t){
 		subToPosition(lookAt);
+		//if (position[1] < t.altitude(position[0], position[2]) + 1.5)
+		position[1] = t.altitude(position[0], position[2]) + 1.5;
 	}
 	public void moveUp(double i){
 		position[1] += i;
