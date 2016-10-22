@@ -150,8 +150,11 @@ public class Road {
     }
 
 	public void draw(GL2 gl, GLUT glut, double[][] x) {
-		// TODO Auto-generated method stub
-
+		String roadTextureFileName = "road.bmp";
+		String ext = "bmp";
+		MyTexture roadTexture = new MyTexture(gl, roadTextureFileName, ext, true);
+		
+		gl.glBindTexture(GL2.GL_TEXTURE_2D, roadTexture.getTextureId());
         
         	gl.glBegin(GL2.GL_QUADS);
         	//gl.glLineWidth(2);
@@ -174,9 +177,13 @@ public class Road {
         	double newY1 = p1[1] + (( -Math.sin(90) * (p1[0]-p[0]) + Math.cos(90) * (p1[1] -p[1]))) * myWidth/Math.abs(p[0] - p[1]);
 //        	double[] p2 = {newX, height, newY};
 //        	double[] p3 = {newX1, height, newY1};
+        	gl.glTexCoord2d(0,0);
         	gl.glVertex3d(point(t)[0], height + 0.02, point(t)[1]);
+        	gl.glTexCoord2d(0,1);
         	gl.glVertex3d(point(t+tIncrement)[0], height + 0.02, point(t+tIncrement)[1]);
+        	gl.glTexCoord2d(1,1);
         	gl.glVertex3d(newX1, height + 0.02, newY1);
+        	gl.glTexCoord2d(1,0);
         	gl.glVertex3d(newX, height + 0.02, newY);
         	
      //       System.out.println("p2 = " + p2[0] + " " + p2[2]);

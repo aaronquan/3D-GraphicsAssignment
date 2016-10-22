@@ -77,12 +77,12 @@ public class Camera {
 	public void moveForward(double i, Terrain t){
 		addToPosition(lookAt, i);
 		//if (position[1] < t.altitude(position[0], position[2]) + 1.5)
-		position[1] = t.altitude(position[0], position[2]) + 1.5;
+		position[1] = t.altitude(position[0], position[2]) + 0.5;
 	}
 	public void moveBackward(double i, Terrain t){
 		subToPosition(lookAt, i);
 		//if (position[1] < t.altitude(position[0], position[2]) + 1.5)
-		position[1] = t.altitude(position[0], position[2]) + 1.5;
+		position[1] = t.altitude(position[0], position[2]) + 0.5;
 	}
 	public void moveUp(double i){
 		position[1] += i;

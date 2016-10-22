@@ -237,7 +237,6 @@ public class Terrain {
     }
 
 	public void drawTree(GL2 gl) {
-		gl.glBindTexture(GL2.GL_TEXTURE_2D, 0);
 		for(Tree t : myTrees) {
 			t.draw(gl);
 		}
