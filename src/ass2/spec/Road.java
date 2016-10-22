@@ -152,39 +152,57 @@ public class Road {
 	public void draw(GL2 gl, GLUT glut, double[][] x) {
 		// TODO Auto-generated method stub
 
-        double start[] = controlPoint(0);
-        double end[] = controlPoint(3);
-        gl.glPointSize(10);
         
-        
-        gl.glPointSize(5);
-        
-        	gl.glBegin(GL2.GL_LINE_STRIP);
+        	gl.glBegin(GL2.GL_QUADS);
+        	//gl.glLineWidth(2);
 //gl.glBegin(GL2.GL_POINTS);
-            gl.glColor4d(0.0, 0.0, 0.0, 1);
+            gl.glColor4d(2f, 0.0, 0.0, 1);
 
         int numPoints = 16;
         double tIncrement = 1.0/numPoints;
-        //System.out.println("numPoints " + numPoints + " " + tIncrement);
-        for(int i = 0; i < numPoints*size(); i++){        		
+       // System.out.println("numPoints " + numPoints + " " + tIncrement);
+        for(int i = 0; i < (numPoints*size() - 1); i++){        		
         	double t = i*tIncrement;   
-        	//System.out.println("t " + t);
-        	double[] p = point(t);
-        	double height = x[(int) p[0]][(int) p[1]];
-        	gl.glVertex3d(p[0], height + 0.1, p[1]);
+
+        	double height = x[(int) point(t)[0]][(int) point(t)[1]];
+        	double[] p = {point(t)[0],height, point(t)[1]};
+        	System.out.println("p =" + p[0] + " " + p[1] );
+        	double[] p1 = {point(t+tIncrement)[0],height, point(t+tIncrement)[1]};
+        	double newX = p[0] + ((p1[0]-p[0])*Math.cos(90) - (p1[1]-p[1])*Math.sin(90)) * myWidth/Math.abs(p[0] - p[1]);
+        	double newY = p[1] + (( -Math.sin(90) * (p1[0]-p[0]) + Math.cos(90) * (p1[1] -p[1]))) * myWidth/Math.abs(p[0] - p[1]);
+        	double newX1 = p1[0] + ((p1[0]-p[0])*Math.cos(90) - (p1[1]-p[1])*Math.sin(90)) * myWidth/Math.abs(p[0] - p[1]);
+        	double newY1 = p1[1] + (( -Math.sin(90) * (p1[0]-p[0]) + Math.cos(90) * (p1[1] -p[1]))) * myWidth/Math.abs(p[0] - p[1]);
+//        	double[] p2 = {newX, height, newY};
+//        	double[] p3 = {newX1, height, newY1};
+        	gl.glVertex3d(point(t)[0], height + 0.02, point(t)[1]);
+        	gl.glVertex3d(point(t+tIncrement)[0], height + 0.02, point(t+tIncrement)[1]);
+        	gl.glVertex3d(newX1, height + 0.02, newY1);
+        	gl.glVertex3d(newX, height + 0.02, newY);
+        	
+     //       System.out.println("p2 = " + p2[0] + " " + p2[2]);
+
+       //      System.out.println("p3 = " + p3[0] + " " + p3[2]);
+
+        	
+
+        	//gl.glNormal3d(p[0],height+0.02, p[1]);
+        	
         }
         //Connect to the final point - we just get the final control 
         //point 
         double[] ctrlPnt = controlPoint(size()*3);
-        gl.glVertex3d(ctrlPnt[0],x[(int) ctrlPnt[0]][(int) ctrlPnt[1]]+ 0.1,ctrlPnt[1]);
-       
-        //Connect to the final point - we just get the final control 
-        //point 
-        //gl.glVertex3d(controlPoint(size()*3)[0],1,controlPoint(size()*3)[1]);
+       // gl.glVertex3d(ctrlPnt[0],x[(int) ctrlPnt[0]][(int) ctrlPnt[1]]+ 0.01,ctrlPnt[1]);
        
 
+	    gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
+
         gl.glEnd();
+	    //gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
+
         
+    //Connect to the final point - we just get the final control 
+    //point 
+
 	}
 
 
