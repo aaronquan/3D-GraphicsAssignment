@@ -226,5 +226,11 @@ public class Terrain {
 		}
 	}
 
+	public void drawRoad(GL2 gl, GLUT glut) {
+		for(Road r : myRoads) {
+			r.draw(gl, glut, myAltitude);
+		}
+	}
+
 
 }
