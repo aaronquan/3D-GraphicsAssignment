@@ -20,15 +20,15 @@ public class Camera {
 	public double [] getPosition(){
 		return position;
 	}
-	public void addToPosition(double [] add){
-		position[0] += add[0];
-		position[1] += add[1];
-		position[2] += add[2];
+	public void addToPosition(double [] add, double multiplier){
+		position[0] += add[0]*multiplier;
+		position[1] += add[1]*multiplier;
+		position[2] += add[2]*multiplier;
 	}
-	public void subToPosition(double [] add){
-		position[0] -= add[0];
-		position[1] -= add[1];
-		position[2] -= add[2];
+	public void subToPosition(double [] add, double multiplier){
+		position[0] -= add[0]*multiplier;
+		position[1] -= add[1]*multiplier;
+		position[2] -= add[2]*multiplier;
 	}
 	public double getAngle(){
 		return angle;
@@ -75,12 +75,12 @@ public class Camera {
 		changeLookAt();
 	}
 	public void moveForward(double i, Terrain t){
-		addToPosition(lookAt);
+		addToPosition(lookAt, i);
 		//if (position[1] < t.altitude(position[0], position[2]) + 1.5)
 		position[1] = t.altitude(position[0], position[2]) + 1.5;
 	}
 	public void moveBackward(double i, Terrain t){
-		subToPosition(lookAt);
+		subToPosition(lookAt, i);
 		//if (position[1] < t.altitude(position[0], position[2]) + 1.5)
 		position[1] = t.altitude(position[0], position[2]) + 1.5;
 	}
