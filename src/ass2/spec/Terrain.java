@@ -195,7 +195,7 @@ public class Terrain {
     	String terrainTextureExt = "bmp";
     	MyTexture terrainTexture = new MyTexture(gl, terrainTextureFileName, terrainTextureExt, true);
     	
-    	gl.glBindTexture(GL2.GL_TEXTURE_2D, terrainTexture.getTextureId());
+    	//gl.glBindTexture(GL2.GL_TEXTURE_2D, terrainTexture.getTextureId());
     	gl.glBegin(GL2.GL_TRIANGLES);
     	
     	for (int x = 0; x < myAltitude.length - 1; x++){

@@ -156,43 +156,50 @@ public class Road {
 		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, roadTexture.getTextureId());
         
-        	gl.glBegin(GL2.GL_QUADS);
+
         	//gl.glLineWidth(2);
 //gl.glBegin(GL2.GL_POINTS);
+    	gl.glBegin(GL2.GL_POLYGON);
             gl.glColor4d(2f, 0.0, 0.0, 1);
 
-        int numPoints = 16;
+        int numPoints = 32;
         double tIncrement = 1.0/numPoints;
        // System.out.println("numPoints " + numPoints + " " + tIncrement);
-        for(int i = 0; i < (numPoints*size() - 1); i++){        		
+        for(int i = 0; i < (numPoints*size() - 1); i++){ 
+
         	double t = i*tIncrement;   
 
         	double height = x[(int) point(t)[0]][(int) point(t)[1]];
         	double[] p = {point(t)[0],height, point(t)[1]};
-        	System.out.println("p =" + p[0] + " " + p[1] );
+        	System.out.println("p =" + p[0] + " " + p[2] );
         	double[] p1 = {point(t+tIncrement)[0],height, point(t+tIncrement)[1]};
-        	double newX = p[0] + ((p1[0]-p[0])*Math.cos(90) - (p1[1]-p[1])*Math.sin(90)) * myWidth/Math.abs(p[0] - p[1]);
-        	double newY = p[1] + (( -Math.sin(90) * (p1[0]-p[0]) + Math.cos(90) * (p1[1] -p[1]))) * myWidth/Math.abs(p[0] - p[1]);
-        	double newX1 = p1[0] + ((p1[0]-p[0])*Math.cos(90) - (p1[1]-p[1])*Math.sin(90)) * myWidth/Math.abs(p[0] - p[1]);
-        	double newY1 = p1[1] + (( -Math.sin(90) * (p1[0]-p[0]) + Math.cos(90) * (p1[1] -p[1]))) * myWidth/Math.abs(p[0] - p[1]);
+        	double dist = myWidth;//Math.sqrt((p[0] - p1[0]) *(p[0] - p1[0]) + (p[2] - p1[2]) * (p[2] - p1[2]));
+        	System.out.println("dist =" + dist);
+        	double rotateX = ((p1[0]-p[0])*Math.cos(Math.toRadians(90)) + (p1[2]-p[2])*Math.sin(Math.toRadians(90)));
+        	double rotateY = ((-Math.sin(Math.toRadians(90)) * (p1[0]-p[0]) + Math.cos(Math.toRadians(90)) * (p1[2] -p[2])));
+        	double newX = p[0] + rotateX*dist;
+        	double newY = p[2] + rotateY*dist;
+        	double newX1 = p1[0] + rotateX*dist;
+        	double newY1 = p1[2] + rotateY*dist;
+        	System.out.println("newX =" + newX + " newz " + newY );
+
+        	//        	newX = newX*myWidth/Math.hypot(newX1 - newX, newY1 - newY);
+//        	newY = newY*myWidth/Math.hypot(newX1 - newX, newY1 - newY);
+//        	newX1 = newX1*myWidth/Math.hypot(newX1 - newX, newY1 - newY);
+//        	newY1 = newY1*myWidth/Math.hypot(newX1 - newX, newY1 - newY);
 //        	double[] p2 = {newX, height, newY};
 //        	double[] p3 = {newX1, height, newY1};
+        	
         	gl.glTexCoord2d(0,0);
         	gl.glVertex3d(point(t)[0], height + 0.02, point(t)[1]);
         	gl.glTexCoord2d(0,1);
         	gl.glVertex3d(point(t+tIncrement)[0], height + 0.02, point(t+tIncrement)[1]);
         	gl.glTexCoord2d(1,1);
-        	gl.glVertex3d(newX1, height + 0.02, newY1);
+        	gl.glVertex3d(newX1, height + 0.02, newY1);        	
         	gl.glTexCoord2d(1,0);
         	gl.glVertex3d(newX, height + 0.02, newY);
-        	
-     //       System.out.println("p2 = " + p2[0] + " " + p2[2]);
 
-       //      System.out.println("p3 = " + p3[0] + " " + p3[2]);
 
-        	
-
-        	//gl.glNormal3d(p[0],height+0.02, p[1]);
         	
         }
         //Connect to the final point - we just get the final control 
@@ -201,9 +208,10 @@ public class Road {
        // gl.glVertex3d(ctrlPnt[0],x[(int) ctrlPnt[0]][(int) ctrlPnt[1]]+ 0.01,ctrlPnt[1]);
        
 
+        gl.glEnd();
 	    gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
 
-        gl.glEnd();
+  
 	    //gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
 
         
