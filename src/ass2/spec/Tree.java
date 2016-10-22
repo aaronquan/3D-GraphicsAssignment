@@ -24,16 +24,26 @@ public class Tree {
     }
 
 	public void draw(GL2 gl, GLUT glut) {
+		String trunkTextureFileName = "bark.bmp";
+		String leafTextureFileName = "leaves.bmp";
+		String ext = "bmp";
+		
+		MyTexture trunkTexture = new MyTexture(gl, trunkTextureFileName, ext, true);
+		MyTexture leafTexture = new MyTexture(gl, leafTextureFileName, ext, true);
+		
 		double height = 0.5;
 		double trunkRadius = 0.04;
 		double leavesRadius = 0.2;
 		gl.glPushMatrix();
 			gl.glTranslated(myPos[0], myPos[1], myPos[2]);
 			Cylinder c = new Cylinder(height, trunkRadius);
+			gl.glBindTexture(GL2.GL_TEXTURE_2D, trunkTexture.getTextureId());
 			c.draw(gl);
 			gl.glPushMatrix();
 				gl.glTranslated(0, height, 0);
-				glut.glutSolidSphere(leavesRadius, 40, 40);
+				gl.glBindTexture(GL2.GL_TEXTURE_2D, leafTexture.getTextureId());
+				Sphere s = new Sphere(leavesRadius);
+				s.draw(gl);
 			gl.glPopMatrix();
 		gl.glPopMatrix();
 	}

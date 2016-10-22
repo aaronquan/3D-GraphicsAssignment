@@ -184,6 +184,11 @@ public class Terrain {
     }
     
     public void drawTerrain(GL2 gl){
+    	String terrainTextureFileName = "grass.bmp";
+    	String terrainTextureExt = "bmp";
+    	MyTexture terrainTexture = new MyTexture(gl, terrainTextureFileName, terrainTextureExt, true);
+    	
+    	gl.glBindTexture(GL2.GL_TEXTURE_2D, terrainTexture.getTextureId());
     	gl.glBegin(GL2.GL_TRIANGLES);
     	
     	for (int x = 0; x < myAltitude.length - 1; x++){
@@ -198,15 +203,20 @@ public class Terrain {
     			
     			n1 = MathUtil.normalise(n1);
     			n2 = MathUtil.normalise(n2);
-    			
     			gl.glNormal3dv(n1, 0);
+    			gl.glTexCoord2d(0, 0);
     			gl.glVertex3dv(p1, 0);
+    			gl.glTexCoord2d(0, 1);
     			gl.glVertex3dv(p3, 0);
+    			gl.glTexCoord2d(1, 0);
     			gl.glVertex3dv(p2, 0);
     			
     			gl.glNormal3dv(n2, 0);
+    			gl.glTexCoord2d(0, 1);
     			gl.glVertex3dv(p3,0);
+    			gl.glTexCoord2d(1, 1);
     			gl.glVertex3dv(p4, 0);
+    			gl.glTexCoord2d(1, 0);
     			gl.glVertex3dv(p2, 0);
     		}
     	}
@@ -220,7 +230,7 @@ public class Terrain {
     }
 
 	public void drawTree(GL2 gl, GLUT glut) {
-		// TODO Auto-generated method stub
+		gl.glBindTexture(GL2.GL_TEXTURE_2D, 0);
 		for(Tree t : myTrees) {
 			t.draw(gl, glut);
 		}

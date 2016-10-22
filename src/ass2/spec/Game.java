@@ -111,6 +111,12 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 		//cull back faces
 		gl.glEnable(GL2.GL_CULL_FACE);
     	gl.glCullFace(GL2.GL_BACK);
+    	
+    	// Specify how texture values combine with current surface color values.
+    	gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
+
+    	// Turn on OpenGL texturing.
+    	gl.glEnable(GL2.GL_TEXTURE_2D); 
 		
 	}
 

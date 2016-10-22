@@ -68,12 +68,17 @@ public class Cylinder {
                 double x1 = radius * Math.cos(a1);
                 double z1 = radius * Math.sin(a1);
                 
-                gl.glNormal3d(x0, 0, z0);        
+                gl.glNormal3d(x0, 0, z0);
+                gl.glTexCoord2d((double)i/slices, 0);
                 gl.glVertex3d(x0, y1, z0);
+                gl.glTexCoord2d((double)i/slices, 1);
                 gl.glVertex3d(x0, y2, z0);  
                 gl.glNormal3d(x1, 0, z1);
+                gl.glTexCoord2d(((double)(i+1)%slices)/slices, 1);
                 gl.glVertex3d(x1, y2, z1);
-                gl.glVertex3d(x1, y1, z1);                         
+                gl.glTexCoord2d(((double)(i+1)%slices)/slices, 0);
+                gl.glVertex3d(x1, y1, z1);     
+                System.out.println(slices);
             }
 
         }
