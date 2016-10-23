@@ -2,6 +2,7 @@ package ass2.spec;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 public class Camera {
 	private boolean firstPerson;
@@ -138,8 +139,8 @@ public class Camera {
 				0, 1, 0
 				);
 	}
-	public void drawAvatar(GL2 gl){
+	public void drawAvatar(GL2 gl, GLUT glut){
 		if (!firstPerson)
-		avatar.draw(gl);
+		avatar.draw(gl, glut, angle);
 	}
 }

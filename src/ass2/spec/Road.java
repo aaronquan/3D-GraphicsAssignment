@@ -173,14 +173,14 @@ public class Road {
         	double[] p = {point(t)[0],height, point(t)[1]};
         	double[] p1 = {point(t+tIncrement)[0],height, point(t+tIncrement)[1]};
         	double dist = myWidth;//Math.sqrt((p[0] - p1[0]) *(p[0] - p1[0]) + (p[2] - p1[2]) * (p[2] - p1[2]));
-        	System.out.println("dist =" + dist);
+        	//System.out.println("dist =" + dist);
         	double rotateX = ((p1[0]-p[0])*Math.cos(Math.toRadians(90)) + (p1[2]-p[2])*Math.sin(Math.toRadians(90)));
         	double rotateY = ((-Math.sin(Math.toRadians(90)) * (p1[0]-p[0]) + Math.cos(Math.toRadians(90)) * (p1[2] -p[2])));
         	double newX = p[0] + rotateX*dist;
         	double newY = p[2] + rotateY*dist;
         	double newX1 = p1[0] + rotateX*dist;
         	double newY1 = p1[2] + rotateY*dist;
-        	System.out.println("newX =" + newX + " newz " + newY );
+        	//System.out.println("newX =" + newX + " newz " + newY );
 
         	//        	newX = newX*myWidth/Math.hypot(newX1 - newX, newY1 - newY);
 //        	newY = newY*myWidth/Math.hypot(newX1 - newX, newY1 - newY);

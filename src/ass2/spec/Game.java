@@ -28,6 +28,8 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
     
     private double moveSpeed = 0.1;
     private double turnSpeed = 2;
+    
+    private boolean nightMode = false;
 
     public Game(Terrain terrain) {
     	super("Assignment 2");
@@ -80,12 +82,43 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 		gl.glClear (GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
+        myTerrain.setLighting(gl, myCamera.getAngle());
+        if(nightMode){
+        	gl.glDisable(GL2.GL_LIGHT0);
+        	gl.glEnable(GL2.GL_LIGHT1);
+        	double [] pos = myCamera.getPosition();
+        	double [] dir = myCamera.getLookAt();
+        	float [] posF = new float[pos.length+1];
+        	float [] dirF = new float[dir.length];
+        	for (int i = 0; i<pos.length; i++){
+        		posF[i] = (float) pos[i];
+        		dirF[i] = (float) dir[i];
+        	}
+        	//posF[0] += dirF[0]*1;
+        	//posF[1] += dirF[1]*1;
+        	//posF[2] += dirF[2]*1;
+        	posF[3] = 1.0f;
+        	float lightDifAndSpec[] = {1.0f, 1.0f, 1.0f, 1.0f};
+        	float spotAngle = 10f;
+        	float spotExp = 10f;
+        	//float lightDifAndSpec[] = {1.0f, 1.0f, 1.0f, 1.0f};
+        	gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_AMBIENT, lightDifAndSpec,0);
+    		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_DIFFUSE, lightDifAndSpec,0);
+    		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_SPECULAR, lightDifAndSpec,0);
+        	gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_POSITION, posF, 0);
+        	gl.glLightf(GL2.GL_LIGHT1, GL2.GL_SPOT_CUTOFF, spotAngle);
+        	gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_SPOT_DIRECTION, dirF,0);    
+        	gl.glLightf(GL2.GL_LIGHT1, GL2.GL_SPOT_EXPONENT, spotExp);
+        }else{
+        	gl.glEnable(GL2.GL_LIGHT0);
+        	gl.glDisable(GL2.GL_LIGHT1);
+        }
+        
         GLUT glut = new GLUT();
 		GLU glu = new GLU();
 		myCamera.updateCamera(glu);
-		myCamera.drawAvatar(gl);
+		myCamera.drawAvatar(gl, glut);
 		//gl.glScaled(0.1, 0.1, 0.1);
-		
 		
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
 		myTerrain.drawTerrain(gl);
@@ -109,9 +142,17 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 		gl.glEnable(GL2.GL_DEPTH_TEST);
 		gl.glEnable(GL2.GL_LIGHTING);
 		gl.glEnable(GL2.GL_LIGHT0);
+		//gl.glEnable(GL2.GL_LIGHT1);
 		gl.glEnable(GL2.GL_NORMALIZE);
-		myTerrain.setLighting(gl);
-		//gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, myTerrain.getSunlight(), 0);
+		
+		
+		float lightDifAndSpec[] = {1.0f, 1.0f, 1.0f, 1.0f};
+		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, lightDifAndSpec,0);
+		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR, lightDifAndSpec,0);
+		
+		float globAmb[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+		gl.glLightModelfv(GL2.GL_LIGHT_MODEL_AMBIENT, globAmb,0);
+		//myTerrain.setLighting(gl, myCamera.getAngle());
 		
 		//cull back faces
 		gl.glEnable(GL2.GL_CULL_FACE);
@@ -122,6 +163,13 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 
     	// Turn on OpenGL texturing.
     	gl.glEnable(GL2.GL_TEXTURE_2D); 
+    	
+		float [] ad = {1.0f, 1.0f, 1.0f, 1.0f}; 
+		float [] sp = {0.2f, 0.2f, 0.2f, 1.0f}; 
+		float [] sh = {0f, 0f, 0f, 1.0f}; 
+		gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_AMBIENT_AND_DIFFUSE, ad,0);
+    	gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SPECULAR, sp,0);
+    	gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SHININESS, sh,0);
 		
 	}
 
@@ -160,6 +208,9 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
     	case KeyEvent.VK_SPACE:
     		myCamera.toggleView();
     		break;
+    	case KeyEvent.VK_N:
+    		nightMode = !nightMode;
+    		
     	default:
     		break;
     	}

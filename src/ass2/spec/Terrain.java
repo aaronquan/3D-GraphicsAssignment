@@ -231,9 +231,13 @@ public class Terrain {
     	gl.glEnd();
     }
     
-    public void setLighting(GL2 gl){
-    	float [] dir = {mySunlight[0], mySunlight[1], mySunlight[2], 0};
-    	gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, dir, 0);
+    public void setLighting(GL2 gl, double angle){
+    	float [] dir = {-mySunlight[0], mySunlight[1], -mySunlight[2], 0};
+    	gl.glPushMatrix();
+    		System.out.println(angle);
+    		gl.glRotated(angle, 0, 1, 0);
+    		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, dir, 0);
+    	gl.glPopMatrix();
     }
 
 	public void drawTree(GL2 gl) {
