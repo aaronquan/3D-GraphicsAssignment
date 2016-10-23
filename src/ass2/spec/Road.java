@@ -169,7 +169,7 @@ public class Road {
 
         	double height = x[(int) point(t)[0]][(int) point(t)[1]];
         	double[] p = {point(t)[0],height, point(t)[1]};
-        	System.out.println("p =" + p[0] + " " + p[1] );
+        	//System.out.println("p =" + p[0] + " " + p[1] );
         	double[] p1 = {point(t+tIncrement)[0],height, point(t+tIncrement)[1]};
         	double newX = p[0] + ((p1[0]-p[0])*Math.cos(90) - (p1[1]-p[1])*Math.sin(90)) * myWidth/Math.abs(p[0] - p[1]);
         	double newY = p[1] + (( -Math.sin(90) * (p1[0]-p[0]) + Math.cos(90) * (p1[1] -p[1]))) * myWidth/Math.abs(p[0] - p[1]);

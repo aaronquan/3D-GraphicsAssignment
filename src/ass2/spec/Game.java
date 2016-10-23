@@ -48,6 +48,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
           
           myCamera = new Camera(0, 0, 0);
           
+          
           // Add an animator to call 'display' at 60fps        
           FPSAnimator animator = new FPSAnimator(60);
           animator.add(panel);
@@ -82,7 +83,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
         GLUT glut = new GLUT();
 		GLU glu = new GLU();
 		myCamera.updateCamera(glu);
-		
+		myCamera.drawAvatar(gl);
 		//gl.glScaled(0.1, 0.1, 0.1);
 		
 		
@@ -155,6 +156,9 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
     		break;
     	case KeyEvent.VK_S:
     		myCamera.moveDown(moveSpeed);
+    		break;
+    	case KeyEvent.VK_SPACE:
+    		myCamera.toggleView();
     		break;
     	default:
     		break;

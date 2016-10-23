@@ -8,7 +8,7 @@ public class Cylinder {
 	
 	private double height;
 	private double radius;
-	private int slices = 32;
+	private int slices = 8;
 	
 	public Cylinder (double h, double r) {
 		height = h;

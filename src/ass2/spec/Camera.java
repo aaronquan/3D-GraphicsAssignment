@@ -1,11 +1,16 @@
 package ass2.spec;
 
+import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
 
 public class Camera {
+	private boolean firstPerson;
 	private double [] position;
 	private double angle; // in degrees
 	private double [] lookAt;
+	private Avatar avatar;
+	
+	private double thirdPersonDistance = 2;
 	public Camera(double posX, double posY, double posZ){
 		position = new double[3];
 		lookAt = new double[3];
@@ -15,7 +20,21 @@ public class Camera {
 		lookAt[0] = 0;
 		lookAt[1] = 0;
 		lookAt[2] = 1;
+		
 		angle = 0;
+		
+		firstPerson = true;
+		avatar = new Avatar(position);
+	}
+	public void toggleView(){
+		if (firstPerson){
+			//change to third person
+			subToPosition(lookAt, thirdPersonDistance);
+		}else{
+			//change to first person
+			addToPosition(lookAt, thirdPersonDistance);
+		}
+		firstPerson = !firstPerson;
 	}
 	public double [] getPosition(){
 		return position;
@@ -51,12 +70,6 @@ public class Camera {
 			lookAt[0] = -1;
 			lookAt[2] = 0;
 		}else{
-			if (angle > 270){
-				//mX = -mX;
-			}
-			if (angle > 90 && angle < 180){
-				//mX = -mX;
-			}
 			lookAt[0] = mX;
 			lookAt[2] = mZ;
 			lookAt = MathUtil.normalise(lookAt);
@@ -67,22 +80,50 @@ public class Camera {
 	public void turnRight(double i){
 		angle -= i;
 		angle = MathUtil.normaliseAngle(angle);
+		if (!firstPerson){
+			addToPosition(lookAt, thirdPersonDistance);
+		}
 		changeLookAt();
+		if (!firstPerson){
+			subToPosition(lookAt, thirdPersonDistance);
+		}
 	}
 	public void turnLeft(double i){
 		angle += i;
 		angle = MathUtil.normaliseAngle(angle);
+		if (!firstPerson){
+			addToPosition(lookAt, thirdPersonDistance);
+		}
 		changeLookAt();
+		if (!firstPerson){
+			subToPosition(lookAt, thirdPersonDistance);
+		}
 	}
 	public void moveForward(double i, Terrain t){
 		addToPosition(lookAt, i);
 		//if (position[1] < t.altitude(position[0], position[2]) + 1.5)
-		position[1] = t.altitude(position[0], position[2]) + 0.5;
+		position[1] = t.altitude(position[0], position[2]) + 1;
+		avatar.moveForward(lookAt, i);
+		if (!firstPerson){
+			position[1] = t.altitude(position[0]+lookAt[0]*thirdPersonDistance, position[2]+lookAt[2]*thirdPersonDistance)+1;
+			avatar.setAltitude(t.altitude(position[0]+lookAt[0]*thirdPersonDistance, position[2]+lookAt[2]*thirdPersonDistance));
+		}
+		else{
+			avatar.setAltitude(t.altitude(position[0], position[2]));
+		}
 	}
 	public void moveBackward(double i, Terrain t){
 		subToPosition(lookAt, i);
 		//if (position[1] < t.altitude(position[0], position[2]) + 1.5)
-		position[1] = t.altitude(position[0], position[2]) + 0.5;
+		position[1] = t.altitude(position[0], position[2]) + 1;
+		avatar.moveBackward(lookAt, i);
+		if (!firstPerson){
+			position[1] = t.altitude(position[0]+lookAt[0]*thirdPersonDistance, position[2]+lookAt[2]*thirdPersonDistance)+1;
+			avatar.setAltitude(t.altitude(position[0]+lookAt[0]*thirdPersonDistance, position[2]+lookAt[2]*thirdPersonDistance));
+		}
+		else{
+			avatar.setAltitude(t.altitude(position[0], position[2]));
+		}
 	}
 	public void moveUp(double i){
 		position[1] += i;
@@ -96,5 +137,9 @@ public class Camera {
 				position[0]+lookAt[0], position[1]+lookAt[1], position[2]+lookAt[2], 
 				0, 1, 0
 				);
+	}
+	public void drawAvatar(GL2 gl){
+		if (!firstPerson)
+		avatar.draw(gl);
 	}
 }

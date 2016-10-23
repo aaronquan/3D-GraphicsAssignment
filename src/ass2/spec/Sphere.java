@@ -4,8 +4,8 @@ import com.jogamp.opengl.GL2;
 
 public class Sphere {
 	private double radius;
-	private double stacks = 32;
-	private double slices = 32;
+	private double stacks = 8;
+	private double slices = 8;
 	public Sphere(double r){
 		radius = r;
 	}
