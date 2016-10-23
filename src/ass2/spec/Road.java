@@ -171,11 +171,6 @@ public class Road {
 
         	double height = x[(int) point(t)[0]][(int) point(t)[1]];
         	double[] p = {point(t)[0],height, point(t)[1]};
-<<<<<<< HEAD
-        	//System.out.println("p =" + p[0] + " " + p[1] );
-=======
-        	System.out.println("p =" + p[0] + " " + p[2] );
->>>>>>> origin/master
         	double[] p1 = {point(t+tIncrement)[0],height, point(t+tIncrement)[1]};
         	double dist = myWidth;//Math.sqrt((p[0] - p1[0]) *(p[0] - p1[0]) + (p[2] - p1[2]) * (p[2] - p1[2]));
         	System.out.println("dist =" + dist);
