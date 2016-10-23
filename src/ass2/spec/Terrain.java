@@ -20,6 +20,7 @@ public class Terrain {
     private double[][] myAltitude;
     private List<Tree> myTrees;
     private List<Road> myRoads;
+    private List<Enemy> myEnemies;
     private float[] mySunlight;
 
     /**
@@ -33,6 +34,7 @@ public class Terrain {
         myAltitude = new double[width][depth];
         myTrees = new ArrayList<Tree>();
         myRoads = new ArrayList<Road>();
+        myEnemies = new ArrayList<Enemy>();
         mySunlight = new float[3];
     }
     
@@ -190,6 +192,13 @@ public class Terrain {
         myRoads.add(road);        
     }
     
+	public void addEnemy(double x, double z) {
+		// TODO Auto-generated method stub
+        double y = altitude(x, z);
+        Enemy e = new Enemy(x, y, z);
+        myEnemies.add(e);
+	}
+
     public void drawTerrain(GL2 gl){
     	String terrainTextureFileName = "grass.bmp";
     	String terrainTextureExt = "bmp";
@@ -247,6 +256,12 @@ public class Terrain {
 			r.draw(gl, glut, myAltitude);
 		}
 	}
+	public void drawEnemy(GL2 gl) {
+		for(Enemy e : myEnemies) {
+			e.draw(gl);
+		}
+	}
+
 
 
 }

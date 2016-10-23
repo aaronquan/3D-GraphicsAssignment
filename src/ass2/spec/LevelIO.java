@@ -76,8 +76,20 @@ public class LevelIO {
                 terrain.addRoad(w, spine);
             }
         }
+        
+        if (jsonTerrain.has("enemies")) {
+            JSONArray jsonE = jsonTerrain.getJSONArray("enemies");
+            for (int i = 0; i < jsonE.length(); i++) {
+                JSONObject jsonTree = jsonE.getJSONObject(i);
+                double x = jsonTree.getDouble("x");
+                double z = jsonTree.getDouble("z");
+                terrain.addEnemy(x, z);
+                
+            }
+        }
         return terrain;
     }
+    
 
     /**
      * Write Terrain to a JSON file

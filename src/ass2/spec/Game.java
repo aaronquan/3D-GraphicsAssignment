@@ -91,6 +91,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
 		myTerrain.drawTerrain(gl);
 		myTerrain.drawTree(gl);
 		myTerrain.drawRoad(gl, glut);
+		myTerrain.drawEnemy(gl);
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_FILL);
 		
 	}
