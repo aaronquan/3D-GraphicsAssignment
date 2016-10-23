@@ -126,8 +126,6 @@ public class Terrain {
         double altitude = 0;
         
         //no exceptions for out of bounds atm
-        System.out.println(myAltitude.length);
-        System.out.println(x + "," + z);
         if (x < 0 || x > myAltitude.length-1 || z < 0 || z > myAltitude[0].length-1){
         	return altitude;
         }
@@ -141,7 +139,6 @@ public class Terrain {
         //checking whether both x and z are ints
         if (x % 1 == 0 && z % 1 == 0){
         	//take altitude from the array
-        	System.out.println("test");
         	altitude = myAltitude[(int) x][(int) z];
         }
         else if(x % 1 == 0){     	
